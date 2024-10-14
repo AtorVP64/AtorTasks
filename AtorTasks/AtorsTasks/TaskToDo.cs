@@ -189,7 +189,7 @@ namespace AtorsTasks
         public TaskToDo(string name, DateTime creationDate, int ID, bool completed, DateTime? start, DateTime? end, TaskToDo? task)
         {
             Name = name;
-            CreationDate = DateTime.Now;
+            CreationDate = creationDate;
             this.ID = ID;
             Completed = completed;
             this.start = start;
