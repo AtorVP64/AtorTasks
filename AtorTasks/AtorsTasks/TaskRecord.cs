@@ -27,26 +27,26 @@ namespace AtorsTasks
             string file = File.ReadAllText(filepath);
             foreach (var jaTask in JArray.Parse(file))
             {
-                if (jaTask["PrecedentTaskID"].Value<int?>() is not null)
+                if ((jaTask["PrecedentTaskID"] ?? throw new JsonSerializationException("Error at deserializing precedent task")).Value<int?>() is not null)
                 {
                     Tasks.Add(new TaskToDo(
-                        jaTask["Name"]?.Value<string>() ?? throw new JsonSerializationException("Error at deserializing name"),
-                        jaTask["CreationDate"]?.Value<DateTime>() ?? throw new JsonSerializationException("Error at deserializing creation date"),
-                        jaTask["ID"]?.Value<int>() ?? throw new JsonSerializationException("Error at deserializing ID"),
-                        jaTask["Completed"]?.Value<bool>() ?? throw new JsonSerializationException("Error at deserializing completed"),
-                        jaTask["Start"].Value<DateTime?>(),
-                        jaTask["End"].Value<DateTime?>(),
-                        Tasks[jaTask["PrecedentTaskID"].Value<int>()]));
+                        (jaTask["Name"] ?? throw new JsonSerializationException("Error at deserializing name")).Value<string>() ?? throw new JsonSerializationException("Error at deserializing name"),
+                        (jaTask["CreationDate"] ?? throw new JsonSerializationException("Error at deserializing creation date")).Value<DateTime>(),
+                        (jaTask["ID"] ?? throw new JsonSerializationException("Error at deserializing ID")).Value<int>(),
+                        (jaTask["Completed"] ?? throw new JsonSerializationException("Error at deserializing completed")).Value<bool>(),
+                        (jaTask["Start"] ?? throw new JsonSerializationException("Error at deserializing start date")).Value<DateTime?>(),
+                        (jaTask["End"] ?? throw new JsonSerializationException("Error at deserializing end date")).Value<DateTime?>(),
+                        Tasks[(jaTask["PrecedentTaskID"] ?? throw new JsonSerializationException("Error at deserializing precedent task")).Value<int>()]));
                 }
                 else
                 {
                     Tasks.Add(new TaskToDo(
-                        jaTask["Name"]?.Value<string>() ?? throw new JsonSerializationException("Error at deserializing name"),
-                        jaTask["CreationDate"]?.Value<DateTime>() ?? throw new JsonSerializationException("Error at deserializing creation date"),
-                        jaTask["ID"]?.Value<int>() ?? throw new JsonSerializationException("Error at deserializing ID"),
-                        jaTask["Completed"]?.Value<bool>() ?? throw new JsonSerializationException("Error at deserializing completed"),
-                        jaTask["Start"].Value<DateTime?>(),
-                        jaTask["End"].Value<DateTime?>(),
+                        (jaTask["Name"] ?? throw new JsonSerializationException("Error at deserializing name")).Value<string>() ?? throw new JsonSerializationException("Error at deserializing name"),
+                        (jaTask["CreationDate"] ?? throw new JsonSerializationException("Error at deserializing creation date")).Value<DateTime>(),
+                        (jaTask["ID"] ?? throw new JsonSerializationException("Error at deserializing ID")).Value<int>(),
+                        (jaTask["Completed"] ?? throw new JsonSerializationException("Error at deserializing completed")).Value<bool>(),
+                        (jaTask["Start"] ?? throw new JsonSerializationException("Error at deserializing start date")).Value<DateTime?>(),
+                        (jaTask["End"] ?? throw new JsonSerializationException("Error at deserializing end date")).Value<DateTime?>(),
                         null));
                 }
             }
